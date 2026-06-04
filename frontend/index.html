@@ -1,0 +1,313 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{padding:1.25rem 1rem;font-family:var(--font-sans);}
+.brand{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.r-badge{background:#DA291C;color:#fff;font-size:11px;font-weight:500;padding:3px 8px;border-radius:4px;}
+.brand-name{font-size:19px;font-weight:500;color:var(--color-text-primary);}
+.brand-name span{color:#DA291C;}
+.sub{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.25rem;}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:1.25rem;}
+.tab{padding:9px 6px;font-size:12px;font-weight:500;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;text-align:center;line-height:1.3;transition:all 0.15s;}
+.tab i{display:block;font-size:18px;margin-bottom:4px;}
+.tab.active{background:#DA291C;color:#fff;border-color:#DA291C;}
+.tab:not(.active):hover{border-color:#DA291C;color:#DA291C;}
+.panel{display:none;}.panel.active{display:block;}
+.hint{font-size:12px;color:var(--color-text-secondary);margin-bottom:8px;}
+.examples{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.eg{font-size:11px;padding:3px 9px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;}
+.eg:hover{border-color:#DA291C;color:#DA291C;}
+textarea{width:100%;min-height:88px;font-size:13px;font-family:var(--font-sans);padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;}
+textarea:focus{outline:none;border-color:#DA291C;}
+.go-btn{margin-top:8px;width:100%;padding:10px;font-size:14px;font-weight:500;border-radius:var(--border-radius-lg);background:#DA291C;color:#fff;border:none;cursor:pointer;transition:opacity 0.15s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.go-btn:hover{opacity:0.87;}.go-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.out{margin-top:1.25rem;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.15rem;margin-bottom:10px;}
+.clabel{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.clabel .dot{width:6px;height:6px;border-radius:50%;background:#DA291C;flex-shrink:0;}
+.cbody{font-size:13px;color:var(--color-text-primary);line-height:1.65;}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:12px;padding:3px 10px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);}
+.copy-btn{font-size:11px;padding:3px 9px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;margin-left:auto;display:flex;align-items:center;gap:4px;}
+.copy-btn:hover{background:var(--color-background-secondary);}
+.item-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;}
+.item-row:last-child{border-bottom:none;}
+.item-num{font-size:11px;font-weight:500;color:#DA291C;min-width:18px;padding-top:2px;}
+.p-high{background:#FCEBEB;color:#A32D2D;font-size:11px;padding:2px 7px;border-radius:20px;margin-left:auto;flex-shrink:0;}
+.p-med{background:#FAEEDA;color:#633806;font-size:11px;padding:2px 7px;border-radius:20px;margin-left:auto;flex-shrink:0;}
+.p-low{background:#EAF3DE;color:#27500A;font-size:11px;padding:2px 7px;border-radius:20px;margin-left:auto;flex-shrink:0;}
+.email-export-btn{width:100%;margin-top:4px;padding:10px;font-size:13px;font-weight:500;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all 0.15s;}
+.email-export-btn:hover{border-color:#DA291C;color:#DA291C;}
+.email-box{background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.15rem;margin-top:10px;}
+.email-field{margin-bottom:10px;}
+.email-field label{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;}
+.email-field input{width:100%;font-size:13px;font-family:var(--font-sans);padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);}
+.email-field input:focus{outline:none;border-color:#DA291C;}
+.email-body-preview{font-size:13px;color:var(--color-text-primary);line-height:1.7;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;white-space:pre-wrap;font-family:var(--font-sans);}
+.send-row{display:flex;gap:8px;margin-top:10px;}
+.send-btn{flex:1;padding:9px;font-size:13px;font-weight:500;border-radius:var(--border-radius-lg);background:#DA291C;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
+.send-btn:hover{opacity:0.87;}
+.send-copy-btn{padding:9px 14px;font-size:13px;font-weight:500;border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;gap:6px;}
+.send-copy-btn:hover{background:var(--color-background-secondary);}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1rem 0;}
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">DeliveryPilot AI — 4-in-1 BA automation suite for Rogers</h2>
+  <div class="brand">
+    <span class="r-badge">ROGERS</span>
+    <span class="brand-name">DeliveryPilot <span>AI</span></span>
+    <span style="font-size:11px;padding:2px 8px;border-radius:20px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);margin-left:2px;">Next Gen Team-Up</span>
+  </div>
+  <p class="sub">Your AI co-pilot for repetitive delivery tasks — generate, then send in one click</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(0)" id="tab0"><i class="ti ti-notes" aria-hidden="true"></i>Meeting notes</button>
+    <button class="tab" onclick="switchTab(1)" id="tab1"><i class="ti ti-list-check" aria-hidden="true"></i>User stories</button>
+    <button class="tab" onclick="switchTab(2)" id="tab2"><i class="ti ti-chart-bar" aria-hidden="true"></i>Status report</button>
+    <button class="tab" onclick="switchTab(3)" id="tab3"><i class="ti ti-mail" aria-hidden="true"></i>Stakeholder email</button>
+  </div>
+
+  <div class="panel active" id="panel0">
+    <p class="hint">Paste rough meeting notes — get action items with owners and priorities.</p>
+    <div class="examples">
+      <button class="eg" onclick="fill(0,'Discussed Rogers migration timeline. John to confirm infra by Friday. Sarah owns test plan. Still waiting on sign-off from business for Phase 2. Budget review next Tuesday. Risk around third party vendor delays.')">Rogers migration</button>
+      <button class="eg" onclick="fill(0,'Sprint 22 review. Velocity was 34 pts. 2 tickets carried over to next sprint. Dev flagged blocker on API auth integration. PM needs to escalate to Rogers stakeholder. Retro scheduled for Monday 10am.')">Sprint review</button>
+    </div>
+    <textarea id="in0" placeholder="Paste meeting notes here..."></textarea>
+    <button class="go-btn" id="btn0" onclick="run(0)"><i class="ti ti-sparkles" aria-hidden="true"></i>Extract action items</button>
+    <div class="out" id="out0"></div>
+  </div>
+
+  <div class="panel" id="panel1">
+    <p class="hint">Describe a feature — get user stories with acceptance criteria instantly.</p>
+    <div class="examples">
+      <button class="eg" onclick="fill(1,'Allow Rogers customers to view and pay their bill inside the MyRogers app without needing to call support or visit a store.')">Bill pay in-app</button>
+      <button class="eg" onclick="fill(1,'Send automated push notifications to Rogers customers when their monthly data usage hits 80% and again at 100% of their plan limit.')">Data usage alerts</button>
+    </div>
+    <textarea id="in1" placeholder="Describe the feature or requirement..."></textarea>
+    <button class="go-btn" id="btn1" onclick="run(1)"><i class="ti ti-sparkles" aria-hidden="true"></i>Generate user stories</button>
+    <div class="out" id="out1"></div>
+  </div>
+
+  <div class="panel" id="panel2">
+    <p class="hint">Drop in raw sprint notes — get a polished status report ready to share.</p>
+    <div class="examples">
+      <button class="eg" onclick="fill(2,'Sprint 14 complete. Finished login redesign, API rate limiting, 3 bug fixes. Carried over 2 payment gateway tickets. Velocity 38. Next sprint starts Monday focused on checkout flow. On track for Q3 release.')">Sprint 14</button>
+      <button class="eg" onclick="fill(2,'Rogers CRM migration phase 1 done. 3 of 5 modules live. Data sync issue in module 4, workaround in place. June 30 go-live still achievable. Risk: resource gap in July due to team holiday overlap.')">CRM migration</button>
+    </div>
+    <textarea id="in2" placeholder="Paste your raw sprint or project update..."></textarea>
+    <button class="go-btn" id="btn2" onclick="run(2)"><i class="ti ti-sparkles" aria-hidden="true"></i>Generate status report</button>
+    <div class="out" id="out2"></div>
+  </div>
+
+  <div class="panel" id="panel3">
+    <p class="hint">Describe your message — get a professional email draft in seconds.</p>
+    <div class="examples">
+      <button class="eg" onclick="fill(3,'Inform Rogers stakeholder that go-live is delayed 2 weeks due to a critical bug found in UAT. Fix plan is in place. Updated timeline shared by EOD today.')">Delay notice</button>
+      <button class="eg" onclick="fill(3,'Follow up with the Rogers product team who have not responded to our change request raised 5 days ago. We need their approval to unblock the dev team.')">Follow-up nudge</button>
+    </div>
+    <textarea id="in3" placeholder="Describe what you need to say and to whom..."></textarea>
+    <button class="go-btn" id="btn3" onclick="run(3)"><i class="ti ti-sparkles" aria-hidden="true"></i>Draft email</button>
+    <div class="out" id="out3"></div>
+  </div>
+</div>
+
+<script>
+function switchTab(i){for(let t=0;t<4;t++){document.getElementById('tab'+t).classList.toggle('active',t===i);document.getElementById('panel'+t).classList.toggle('active',t===i);}}
+function fill(i,t){document.getElementById('in'+i).value=t;}
+function cp(text,btn){navigator.clipboard.writeText(text).then(()=>{const orig=btn.innerHTML;btn.textContent='Copied!';setTimeout(()=>{btn.innerHTML=orig;},1400);});}
+
+function extractNames(text){const m=text.match(/\b([A-Z][a-z]+)\b(?=\s+(?:to|will|owns|should|needs|must))/g);return m?[...new Set(m)]:[];}
+function extractDeadlines(text){const patterns=[/by\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/gi,/by\s+(eod|eow|end of day|end of week)/gi,/next\s+(monday|tuesday|wednesday|thursday|friday|week|sprint)/gi];const found=[];patterns.forEach(p=>{let m;while((m=p.exec(text))!==null)found.push(m[1]||m[0]);});return found.length?[...new Set(found)]:['this sprint','end of week','next sprint'];}
+function sentences(text){return text.split(/[.!?]+/).map(s=>s.trim()).filter(s=>s.length>15);}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+function genMeeting(text){
+  const sents=sentences(text);const names=extractNames(text);const deadlines=extractDeadlines(text);
+  const hasRisk=/risk|blocker|delay|waiting|depend/i.test(text);
+  const summary=`Team reviewed ${sents.length>2?'multiple workstreams':'key delivery items'} for the Rogers account. ${hasRisk?'Risks and blockers were flagged for immediate follow-up.':'Next steps and ownership were confirmed.'}`;
+  const actions=[];
+  sents.slice(0,5).forEach((s,i)=>{
+    const name=names[i%names.length]||rand(['BA Lead','PM','Dev Lead','QA Lead','Scrum Master']);
+    const deadline=deadlines[i%deadlines.length];
+    const priority=i===0?'High':i<3?'Medium':'Low';
+    actions.push({what:cap(s.length>80?s.substring(0,77)+'...':s),who:name||'Delivery team',when:cap(deadline),priority});
+  });
+  const risks=[];
+  if(/vendor|third.party/i.test(text))risks.push('Third-party vendor dependency may cause delays');
+  if(/sign.off|approval|waiting/i.test(text))risks.push('Pending sign-offs could block Phase 2 progress');
+  if(/budget/i.test(text))risks.push('Budget review outcome may impact scope');
+  if(!risks.length)risks.push('Monitor timeline closely as sprint progresses');
+  return{summary,actions:actions.slice(0,5),risks};
+}
+function genStories(text){
+  const isApp=/app|mobile|portal|self.serv/i.test(text);const isNotif=/notif|alert|push|sms/i.test(text);const isReport=/report|dashboard|view|track/i.test(text);
+  let persona=isApp?'Rogers customer':isReport?'delivery manager':'Rogers user';
+  let benefit=isApp?'they can self-serve without calling support':isNotif?'they can take action before being impacted':'the team can make faster, better decisions';
+  let action=text.toLowerCase().replace(/^allow\s+rogers\s+customers?\s+to\s+/i,'').replace(/^rogers\s+customers?\s+(can|to)\s+/i,'');
+  if(action.length>60)action=action.substring(0,57)+'...';
+  const primaryStory=`As a ${persona}, I want to ${action}, so that ${benefit}.`;
+  const secondary=[`As a ${persona}, I want to receive a confirmation after completing the action, so that I know it was successful.`,`As a Rogers support agent, I want visibility into customer self-serve actions, so that I can assist when needed.`];
+  const ac=[`Given the ${persona} is logged in, when they access the feature, then it is clearly visible and accessible within 2 taps.`,`Given valid input is provided, when the user submits, then the system confirms success and updates records in real time.`,`Given the action fails, when an error occurs, then a clear descriptive message is shown with a suggested next step.`];
+  return{primaryStory,secondaryStories:secondary,acceptanceCriteria:ac,effort:text.length<100?'S':text.length<200?'M':'L'};
+}
+function genStatus(text){
+  const isRisk=/risk|delay|blocker|issue|gap/i.test(text);const isOnTrack=/on track|complete|done|finished|delivered/i.test(text);
+  const status=isRisk&&!isOnTrack?'At Risk':isRisk?'At Risk':'On Track';
+  const sents=sentences(text);
+  const headline=sents[0]?cap(sents[0].length>90?sents[0].substring(0,87)+'...':sents[0]):'Delivery progressing as planned for Rogers account.';
+  const completed=[],inProgress=[],blockers=[],nextSteps=[];
+  sents.forEach(s=>{
+    if(/complet|done|finish|deliver|live/i.test(s))completed.push(cap(s.length>80?s.substring(0,77)+'...':s));
+    else if(/risk|block|issue|delay|waiting|gap/i.test(s))blockers.push(cap(s.length>80?s.substring(0,77)+'...':s));
+    else if(/next|plan|start|focus|upcoming/i.test(s))nextSteps.push(cap(s.length>80?s.substring(0,77)+'...':s));
+    else inProgress.push(cap(s.length>80?s.substring(0,77)+'...':s));
+  });
+  if(!completed.length)completed.push('Sprint commitments reviewed with delivery team');
+  if(!nextSteps.length)nextSteps.push('Confirm updated plan with Rogers stakeholders','Schedule alignment call for next sprint planning');
+  return{status,headline,completed:completed.slice(0,3),inProgress:inProgress.slice(0,2),blockers:blockers.slice(0,2),nextSteps:nextSteps.slice(0,3)};
+}
+function genEmail(text){
+  const isDelay=/delay|push|block|late|2 week/i.test(text);const isFollowUp=/follow.up|no response|chasing|waiting|5 day/i.test(text);
+  let subject=isDelay?'Rogers Programme — Go-Live Date Update':isFollowUp?'Following Up: Pending Approval Required':'Rogers Programme — Action Required';
+  let body=isDelay?`I wanted to reach out regarding the upcoming go-live milestone for the Rogers programme. Following our UAT review, we identified a critical defect requiring resolution before we can proceed to production. Our engineering team has a fix in place and we are targeting a revised go-live date two weeks from the original plan. I will share a detailed impact assessment and updated project timeline by end of day today.`:isFollowUp?`I hope this message finds you well. I wanted to follow up on the change request submitted to your team five days ago, as we have not yet received a response. Approval is on the critical path for our development team, and a delay in sign-off will impact our sprint delivery commitments. Could you please prioritise a review at your earliest convenience?`:`I wanted to provide a brief update on the Rogers programme delivery. ${cap(text.length>100?text.substring(0,97)+'...':text)}. Please find a more detailed summary attached for your reference. Do not hesitate to reach out if you have any questions or would like to schedule a call to discuss further.`;
+  return{subject,greeting:'Hi [Name],',body,closing:'Kind regards,\n[Your Name]\nCapgemini | Rogers Account'};
+}
+
+const subjectLines=['Meeting Minutes — Rogers Account','User Story Summary — Rogers Delivery','Rogers Programme Status Update','Rogers Account — Stakeholder Communication'];
+
+function buildEmailBody(idx, data){
+  const date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  if(idx===0){
+    const actions=data.actions.map((a,i)=>`  ${i+1}. ${a.what}\n     Owner: ${a.who} | Due: ${a.when} | Priority: ${a.priority}`).join('\n');
+    const risks=data.risks.map(r=>`  • ${r}`).join('\n');
+    return `Hi Team,\n\nPlease find below the minutes and action items from today's Rogers account sync (${date}).\n\nSUMMARY\n${data.summary}\n\nACTION ITEMS\n${actions}\n\nRISKS / FLAGS\n${risks}\n\nPlease review your assigned actions and confirm ownership at your earliest convenience. Reach out if you have any questions.\n\nKind regards,\n[Your Name]\nCapgemini | Rogers Account`;
+  } else if(idx===1){
+    const ac=data.acceptanceCriteria.map((a,i)=>`  ${i+1}. ${a}`).join('\n');
+    const secondary=data.secondaryStories.map(s=>`  • ${s}`).join('\n');
+    return `Hi Team,\n\nPlease find below the user stories generated for the Rogers delivery backlog (${date}).\n\nPRIMARY USER STORY (Effort: ${data.effort})\n${data.primaryStory}\n\nADDITIONAL STORIES\n${secondary}\n\nACCEPTANCE CRITERIA\n${ac}\n\nPlease review and confirm these are aligned with the Rogers requirements before we move to development.\n\nKind regards,\n[Your Name]\nCapgemini | Rogers Account`;
+  } else if(idx===2){
+    const comp=data.completed.map(c=>`  ✓ ${c}`).join('\n');
+    const inProg=data.inProgress.length?`\nIN PROGRESS\n${data.inProgress.map(c=>`  → ${c}`).join('\n')}`:'';
+    const blk=data.blockers.length?`\nBLOCKERS / RISKS\n${data.blockers.map(b=>`  ⚠ ${b}`).join('\n')}`:'';
+    const next=data.nextSteps.map((n,i)=>`  ${i+1}. ${n}`).join('\n');
+    return `Hi Team,\n\nPlease find below the Rogers programme status update for ${date}.\n\nOVERALL STATUS: ${data.status}\n${data.headline}\n\nCOMPLETED\n${comp}${inProg}${blk}\n\nNEXT STEPS\n${next}\n\nPlease feel free to reach out if you need any further detail.\n\nKind regards,\n[Your Name]\nCapgemini | Rogers Account`;
+  } else {
+    return `${data.greeting}\n\n${data.body}\n\n${data.closing}`;
+  }
+}
+
+function showEmailExport(idx, data){
+  const container=document.getElementById('email-export-'+idx);
+  container.style.display='block';
+  const body=buildEmailBody(idx,data);
+  document.getElementById('email-body-'+idx).textContent=body;
+  document.getElementById('email-subject-'+idx).value=subjectLines[idx];
+}
+
+function sendViaEmail(idx){
+  const subject=encodeURIComponent(document.getElementById('email-subject-'+idx).value);
+  const body=encodeURIComponent(document.getElementById('email-body-'+idx).textContent);
+  window.location.href=`mailto:?subject=${subject}&body=${body}`;
+}
+
+function renderMeeting(p,out,idx){
+  out.innerHTML=`
+    <div class="card"><div class="clabel"><span class="dot"></span>Meeting summary</div><div class="cbody">${p.summary}</div></div>
+    <div class="card">
+      <div class="clabel"><span class="dot"></span>Action items</div>
+      ${p.actions.map((a,i)=>`<div class="item-row"><span class="item-num">${i+1}</span><span style="flex:1;line-height:1.5;">${a.what}<br><span style="font-size:11px;color:var(--color-text-secondary);">${a.who} &middot; ${a.when}</span></span><span class="${a.priority==='High'?'p-high':a.priority==='Low'?'p-low':'p-med'}">${a.priority}</span></div>`).join('')}
+    </div>
+    ${p.risks.length?`<div class="card"><div class="clabel"><span class="dot"></span>Risks flagged</div><div class="chip-row">${p.risks.map(r=>`<span class="chip"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:12px;vertical-align:-1px;margin-right:3px;"></i>${r}</span>`).join('')}</div></div>`:''}
+    <hr class="divider">
+    <button class="email-export-btn" onclick="showEmailExport(${idx},window.__data${idx})"><i class="ti ti-mail-forward" aria-hidden="true"></i> Convert to email & send</button>
+    <div id="email-export-${idx}" style="display:none;">${emailExportHTML(idx)}</div>
+  `;
+  window['__data'+idx]=p;
+}
+function renderStories(p,out,idx){
+  out.innerHTML=`
+    <div class="card">
+      <div class="clabel"><span class="dot"></span>Primary user story <span style="font-size:11px;padding:2px 8px;border-radius:20px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);margin-left:4px;">Effort: ${p.effort}</span></div>
+      <div class="cbody">${p.primaryStory}</div>
+      ${p.secondaryStories.map(s=>`<div class="cbody" style="margin-top:7px;color:var(--color-text-secondary);">${s}</div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="clabel"><span class="dot"></span>Acceptance criteria</div>
+      ${p.acceptanceCriteria.map((ac,i)=>`<div class="item-row"><span class="item-num">${i+1}</span><span style="line-height:1.55;">${ac}</span></div>`).join('')}
+    </div>
+    <hr class="divider">
+    <button class="email-export-btn" onclick="showEmailExport(${idx},window.__data${idx})"><i class="ti ti-mail-forward" aria-hidden="true"></i> Convert to email & send</button>
+    <div id="email-export-${idx}" style="display:none;">${emailExportHTML(idx)}</div>
+  `;
+  window['__data'+idx]=p;
+}
+function renderStatus(p,out,idx){
+  const sb={'On Track':'#EAF3DE','At Risk':'#FAEEDA','Delayed':'#FCEBEB'};
+  const stc={'On Track':'#27500A','At Risk':'#633806','Delayed':'#791F1F'};
+  const s=p.status;
+  out.innerHTML=`
+    <div class="card"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span style="font-size:12px;padding:3px 10px;border-radius:20px;background:${sb[s]||'#FAEEDA'};color:${stc[s]||'#633806'};font-weight:500;">${s}</span><span class="cbody" style="font-weight:500;">${p.headline}</span></div></div>
+    <div class="card"><div class="clabel"><span class="dot"></span>Completed</div>${p.completed.map(c=>`<div class="item-row"><i class="ti ti-circle-check" aria-hidden="true" style="color:#3B6D11;font-size:15px;margin-top:1px;"></i><span>${c}</span></div>`).join('')}</div>
+    ${p.inProgress.length?`<div class="card"><div class="clabel"><span class="dot"></span>In progress</div>${p.inProgress.map(c=>`<div class="item-row"><i class="ti ti-clock" aria-hidden="true" style="color:#BA7517;font-size:15px;margin-top:1px;"></i><span>${c}</span></div>`).join('')}</div>`:''}
+    ${p.blockers.length?`<div class="card"><div class="clabel"><span class="dot"></span>Blockers</div><div class="chip-row">${p.blockers.map(b=>`<span class="chip" style="border-color:#F09595;color:#A32D2D;background:#FCEBEB;">${b}</span>`).join('')}</div></div>`:''}
+    <div class="card"><div class="clabel"><span class="dot"></span>Next steps</div>${p.nextSteps.map((n,i)=>`<div class="item-row"><span class="item-num">${i+1}</span><span>${n}</span></div>`).join('')}</div>
+    <hr class="divider">
+    <button class="email-export-btn" onclick="showEmailExport(${idx},window.__data${idx})"><i class="ti ti-mail-forward" aria-hidden="true"></i> Convert to email & send</button>
+    <div id="email-export-${idx}" style="display:none;">${emailExportHTML(idx)}</div>
+  `;
+  window['__data'+idx]=p;
+}
+function renderEmailTab(p,out,idx){
+  const full=`${p.greeting}\n\n${p.body}\n\n${p.closing}`;
+  out.innerHTML=`
+    <div class="card"><div class="clabel"><span class="dot"></span>Subject line</div><div class="cbody" style="font-weight:500;">${p.subject}</div></div>
+    <div class="card"><div class="clabel"><span class="dot"></span>Email draft</div><div class="cbody">${p.greeting}<br><br>${p.body.replace(/\n/g,'<br>')}<br><br><span style="color:var(--color-text-secondary);">${p.closing.replace(/\n/g,'<br>')}</span></div></div>
+    <hr class="divider">
+    <button class="email-export-btn" onclick="showEmailExport(${idx},window.__data${idx})"><i class="ti ti-mail-forward" aria-hidden="true"></i> Open in email client</button>
+    <div id="email-export-${idx}" style="display:none;">${emailExportHTML(idx)}</div>
+  `;
+  window['__data'+idx]=p;
+}
+
+function emailExportHTML(idx){
+  return `<div class="email-box" style="margin-top:10px;">
+    <div class="email-field"><label>To</label><input type="email" id="email-to-${idx}" placeholder="recipient@rogers.com"></div>
+    <div class="email-field"><label>Subject</label><input type="text" id="email-subject-${idx}" value="${subjectLines[idx]}"></div>
+    <div class="clabel" style="margin-bottom:6px;margin-top:8px;"><span class="dot"></span>Email body</div>
+    <div class="email-body-preview" id="email-body-${idx}"></div>
+    <div class="send-row">
+      <button class="send-btn" onclick="sendViaEmail(${idx})"><i class="ti ti-send" aria-hidden="true"></i>Open in email client</button>
+      <button class="send-copy-btn" onclick="cp(document.getElementById('email-body-${idx}').textContent, this)"><i class="ti ti-copy" aria-hidden="true"></i>Copy</button>
+    </div>
+  </div>`;
+}
+
+const generators=[genMeeting,genStories,genStatus,genEmail];
+const renderers=[renderMeeting,renderStories,renderStatus,renderEmailTab];
+const labels=["Extract action items","Generate user stories","Generate status report","Draft email"];
+
+function run(idx){
+  const input=document.getElementById('in'+idx).value.trim();
+  if(!input)return;
+  const btn=document.getElementById('btn'+idx);
+  const out=document.getElementById('out'+idx);
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner"></div>Analysing...';
+  out.innerHTML='';
+  setTimeout(()=>{
+    try{
+      const result=generators[idx](input);
+      renderers[idx](result,out,idx);
+    }catch(e){
+      out.innerHTML=`<div class="card"><div class="cbody" style="color:var(--color-text-secondary);">Could not process — please try again with more detail.</div></div>`;
+    }
+    btn.disabled=false;
+    btn.innerHTML=`<i class="ti ti-sparkles" aria-hidden="true"></i>${labels[idx]}`;
+  },900);
+}
+</script>

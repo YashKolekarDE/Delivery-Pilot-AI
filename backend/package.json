@@ -1,0 +1,13 @@
+{
+  "name": "deliverypilot-ai",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "latest",
+    "express": "latest",
+    "cors": "latest",
+    "dotenv": "latest"
+  }
+}
